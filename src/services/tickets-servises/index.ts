@@ -53,12 +53,21 @@ async function createTicket(userId: number, ticketTypeId: number) {
   }
 }
 
+async function updateTicketStatus(ticketId: number) {
+  try {
+    await ticketsRepository.updateTicketStatus(ticketId);
+  } catch (error) {
+    throw { name: 'internalServerError' };
+  }
+}
+
 const ticketsServices = {
   getAllTicketsType,
   createTicket,
   getTicketByUserId,
   getTicketByEnrollmentId,
   getTicketById,
+  updateTicketStatus,
 };
 
 export default ticketsServices;

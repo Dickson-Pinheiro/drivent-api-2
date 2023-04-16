@@ -82,6 +82,23 @@ async function getTicketById(id: number) {
       where: {
         id,
       },
+      select: {
+        id: true,
+        status: true,
+        ticketTypeId: true,
+        enrollmentId: true,
+        TicketType: {
+          select: {
+            id: true,
+            name: true,
+            price: true,
+            isRemote: true,
+            includesHotel: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
+      },
     });
     return ticket;
   } catch (error) {
@@ -89,11 +106,23 @@ async function getTicketById(id: number) {
   }
 }
 
+async function updateTicketStatus(ticketId: number) {
+  await prisma.ticket.update({
+    data: {
+      status: 'PAID',
+    },
+    where: {
+      id: ticketId,
+    },
+  });
+}
+
 const ticketsRepository = {
   getAllTicketsType,
   createTicket,
   getTicketByEnrollmentId,
   getTicketById,
+  updateTicketStatus,
 };
 
 export default ticketsRepository;

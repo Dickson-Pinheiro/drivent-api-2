@@ -37,3 +37,21 @@ export type TicketTypeEntity = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type BodyPayment = {
+  ticketId: number;
+  cardData: {
+    issuer: string;
+    number: number;
+    name: string;
+    expirationDate: Date;
+    cvv: number;
+  };
+};
+
+export type CreatePaymentData = {
+  ticketId: number;
+  value: number;
+  cardIssuer: string;
+  cardLastDigits: string;
+};
