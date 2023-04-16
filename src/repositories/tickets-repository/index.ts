@@ -76,10 +76,24 @@ async function getTicketByEnrollmentId(enrollmentId: number) {
   }
 }
 
+async function getTicketById(id: number) {
+  try {
+    const ticket = await prisma.ticket.findUnique({
+      where: {
+        id,
+      },
+    });
+    return ticket;
+  } catch (error) {
+    throw { name: 'internalServerError' };
+  }
+}
+
 const ticketsRepository = {
   getAllTicketsType,
   createTicket,
   getTicketByEnrollmentId,
+  getTicketById,
 };
 
 export default ticketsRepository;
